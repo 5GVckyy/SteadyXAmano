@@ -179,7 +179,10 @@ class SendVoice:
                             peer=await self.resolve_peer(chat_id),
                             media=media,
                             silent=disable_notification or None,
-                            reply_to_msg_id=reply_to_message_id,
+                            reply_to=raw.types.input_reply_to_message.InputReplyToMessage(
+                                reply_to_msg_id=reply_to_message_id,
+                                top_msg_id=None
+                            ) if reply_to_message_id else None,
                             random_id=self.rnd_id(),
                             schedule_date=utils.datetime_to_timestamp(schedule_date),
                             noforwards=protect_content,
